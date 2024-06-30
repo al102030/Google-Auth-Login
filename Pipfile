@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+google-auth-oauthlib = "*"
+cachetools = "*"
+certifi = "*"
+chardet = "*"
+click = "*"
+google-auth = "*"
+idna = "*"
+itsdangerous = "*"
+jinja2 = "*"
+markupsafe = "*"
+oauthlib = "*"
+pyasn1 = "*"
+pyasn1-modules = "*"
+requests = "*"
+requests-oauthlib = "*"
+rsa = "*"
+six = "*"
+urllib3 = "*"
+werkzeug = "*"
+authlib = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
