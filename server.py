@@ -5,9 +5,9 @@ from authlib.integrations.flask_client import OAuth
 
 app = Flask(__name__)
 
-
+ID = os.environ.get("OAUTH2_CLIENT_ID")
 appConf = {
-    "OAUTH2_CLIENT_ID": os.environ.get("OAUTH2_CLIENT_ID"),
+    "OAUTH2_CLIENT_ID": ID,
     "OAUTH2_CLIENT_SECRET": os.environ.get("OAUTH2_CLIENT_SECRET"),
     "OAUTH_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
     "FLASK_SECRET": os.environ.get("FLASK_SECRET"),
@@ -28,13 +28,14 @@ oauth.register("DorfakSoftApp",
 
 @app.route("/")
 def home():
-    return render_template("home.html", session=session.get("user"),
+    return render_template("home.html", ID=ID, session=session.get("user"),
                            pretty=json.dumps(session.get("user"), indent=4))
 
 
 @app.route("/google-login")
-def google_login():
-    return oauth.DorfakSoftApp.authorize_redirect(redirect_uri=url_for("google_callback", _external=True))
+def google_login() -> None:
+    return oauth.DorfakSoftApp.authorize_redirect(redirect_uri=url_for("google_callback",
+                                                                       _external=True))
 
 
 @app.route("/signin-google")
@@ -46,3 +47,25 @@ def google_callback():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+    # return render_template_string("""
+    # <html>
+    # <head>
+    #     <title>Welcome</title>
+    # </head>
+    # <body>
+    #     <h1>Welcome to My Flask App</h1>
+    #     <script type="text/javascript">
+    #         window.onload = function() {
+    #             window.open('{{ url_for('google_login') }}', 'popup', 'width=600,height=600');
+    #         };
+    #     </script>
+    # </body>
+    # </html>
+    # """)
+
+
+# return render_template_string("""
+# <h1>Welcome to My Flask App</h1>
+# <a href="{{ url_for('google_login') }}" onclick="window.open('{{ url_for('google_login') }}', 'popup', 'width=600,height=600'); return false;">Login with Google</a>
+# """)

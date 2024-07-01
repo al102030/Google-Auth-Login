@@ -1,12 +1,95 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div class="col-12 offset-2 my-5">
-        <div class="card">
-            <div class="card-body">
-                <h5>Chart.js Implementation</h5>
-                <hr>
-                <canvas id="myChart"></canvas>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>Google Login</title>
+    <style>
+        .notification {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1000;
+        }
+        .notification.active {
+            display: block;
+        }
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notification-body {
+            margin-top: 10px;
+        }
+    </style>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  </head>
+  <body>
+      <h1>Welcome to My Flask App</h1>
+
+      
+    {% if session %}
+        <div><pre>{{ pretty }}</pre></div>
+    {% else %}
+        <p><a href="{{ url_for('google_login')}}"> Login with Google </a></p>
+    {% endif %}
+
+
+
+    <div id="loginNotification" class="notification">
+        <div class="notification-header">
+            <span>Sign in to your app with Google</span>
+            <button onclick="closeNotification()">X</button>
+        </div>
+        <div class="notification-body">
+            <div id="g_id_onload"
+                 data-client_id="731801577646-kgcqfuvfnhu2um2kt8pegk6t5j0daa69.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-login_uri="{{ url_for('google_callback', _external=True) }}">
             </div>
+            <div class="g_id_signin" data-type="standard"></div>
         </div>
     </div>
-{% endblock content %}
+
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('loginNotification').classList.add('active');
+        };
+        
+        function closeNotification() {
+            document.getElementById('loginNotification').classList.remove('active');
+        }
+    </script>
+
+    <!-- PopUp using java script -->
+    <!-- <a href="javascript:poptastic('https://accounts.google.com/o/oauth2/auth?scope=https://www.google.com/m8/feeds&client_id=21302922996.apps.googleusercontent.com&redirect_uri=https://www.example.com/back&response_type=token');">Try
+        out that example URL now</a>
+    <script>
+        function poptastic(url) {
+          var newWindow = window.open(url, 'name', 'height=600,width=450');
+          if (window.focus) {
+            newWindow.focus();
+          }
+        }
+    </script> -->
+    <!-- end of JS code -->
+
+
+  </body>
+</html>
