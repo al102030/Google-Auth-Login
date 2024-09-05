@@ -25,6 +25,7 @@ six = "*"
 urllib3 = "*"
 werkzeug = "*"
 authlib = "*"
+google-auth-httplib2 = "*"
 
 [dev-packages]
 

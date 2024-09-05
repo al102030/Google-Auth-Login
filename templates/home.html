@@ -55,13 +55,6 @@
             <button onclick="closeNotification()">X</button>
         </div>
         <div class="notification-body">
-            <!--div id="g_id_onload"
-                 data-client_id="731801577646-kgcqfuvfnhu2um2kt8pegk6t5j0daa69.apps.googleusercontent.com"
-                 data-context="signin"
-                 data-ux_mode="popup"
-                 data-login_uri="{{ url_for('google_callback', _external=True) }}">
-        </div>
-            <div class="g_id_signin" data-type="standard"></div-->
         </div>
     </div>
 
@@ -74,21 +67,6 @@
             document.getElementById('loginNotification').classList.remove('active');
         }
     </script>
-
-    <!-- PopUp using java script -->
-    <!-- <a href="javascript:poptastic('https://accounts.google.com/o/oauth2/auth?scope=https://www.google.com/m8/feeds&client_id=21302922996.apps.googleusercontent.com&redirect_uri=https://www.example.com/back&response_type=token');">Try
-        out that example URL now</a>
-    <script>
-        function poptastic(url) {
-          var newWindow = window.open(url, 'name', 'height=600,width=450');
-          if (window.focus) {
-            newWindow.focus();
-          }
-        }
-    </script> -->
-    <!-- end of JS code -->
-    <!-- faster -->
-    <!--script src="https://accounts.google.com/gsi/client" async defer></script-->
     <script src="https://accounts.google.com/gsi/client" async></script>
     <div id="g_id_onload" data-client_id="731801577646-kgcqfuvfnhu2um2kt8pegk6t5j0daa69.apps.googleusercontent.com" data-login_uri="{{ url_for('google_callback', _external=True) }}"></div>
 

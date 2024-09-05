@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://accounts.google.com/gsi/client" async></script>
+        <title>Test Auth</title>
+    </head>
+    
+    <script>
+        function handleCredentialResponse(response) {
+            console.log(response)
+            if (response.credential){
+                let jwt = response.credential
+                let user = JSON.parse(atob(jwt.split(".")[1]))
+                console.log(user)
+                document.getElementById('profile').innerHTML = `
+                <h1> Your Name is : ${user.name}</h1><br>
+                <h2> Your Email is : ${user.email}</h2><br>
+                <img src="${user.picture}"/><br>`
+                
+                document.getElementById('logout-button').style.display = "block"
+            }
+        }
+
+        function handelLogout(){
+            google.accounts.id.disableAutoSelect()
+            google.accounts.id.prompt()
+            document.getElementById('profile').innerHTML = ''
+            document.getElementById('logout-button').style.display = 'none'
+        }
+
+        function init(){
+            google.accounts.id.initialize({
+                client_id: "Your_google_id",
+                callback: handleCredentialResponse,
+                auto_select: true,
+                cancel_on_tap_outside: false,
+                prompt_parent_id: "one-tap-container",
+                context: "signin",
+                useFedCM: true,
+            });
+            google.accounts.id.prompt();
+        }
+
+    </script>
+
+    <body onload="init()">
+    <h1>Test Auth</h1>
+    <p id="profile"></p>
+    <button onclick="handelLogout()" style="display: none;" id="logout-button">Logout</button>
+    </body>
+</html>

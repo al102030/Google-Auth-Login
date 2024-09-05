@@ -47,25 +47,3 @@ def google_callback():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
-
-    # return render_template_string("""
-    # <html>
-    # <head>
-    #     <title>Welcome</title>
-    # </head>
-    # <body>
-    #     <h1>Welcome to My Flask App</h1>
-    #     <script type="text/javascript">
-    #         window.onload = function() {
-    #             window.open('{{ url_for('google_login') }}', 'popup', 'width=600,height=600');
-    #         };
-    #     </script>
-    # </body>
-    # </html>
-    # """)
-
-
-# return render_template_string("""
-# <h1>Welcome to My Flask App</h1>
-# <a href="{{ url_for('google_login') }}" onclick="window.open('{{ url_for('google_login') }}', 'popup', 'width=600,height=600'); return false;">Login with Google</a>
-# """)
